@@ -16,5 +16,8 @@ class UserResponse (
         val about: String,
         val registered: String,
         val latitude: String,
-        val longitude: String
+        val longitude: String,
+        val tags: List<String>,
+        val friends: List<FriendReponse>,
+        val favoriteFruit: String
         )
