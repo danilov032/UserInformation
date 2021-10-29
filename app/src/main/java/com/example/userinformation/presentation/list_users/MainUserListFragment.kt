@@ -2,8 +2,10 @@ package com.example.userinformation.presentation.list_users
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userinformation.R
@@ -11,14 +13,13 @@ import com.example.userinformation.di.AppModule
 import com.example.userinformation.di.DaggerAppComponent
 import com.example.userinformation.domain.modeles.User
 import com.example.userinformation.presentation.adapters.UsersAdapter
-import moxy.MvpAppCompatActivity
+import kotlinx.android.synthetic.main.fragment_main_user_list.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.activity_main_user_list.*
 
-class MainUserListActivity : MvpAppCompatActivity(),
-    MainUserContractView {
+
+class MainUserListFragment : Fragment(), MainUserContractView {
 
     @Inject
     lateinit var presenterLazy: dagger.Lazy<MainUserListPresenter>
@@ -31,7 +32,7 @@ class MainUserListActivity : MvpAppCompatActivity(),
         DaggerAppComponent.builder()
             .appModule(AppModule())
             .build()
-            .injectMainUserListActivity(this)
+            .injectMainUserListFragment(this)
 
         return presenterLazy.get()
     }
@@ -46,24 +47,21 @@ class MainUserListActivity : MvpAppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_user_list)
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_main_user_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainUserListActivity)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = customAdapter
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_user_list, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_favorites) {
-            Log.d("AAA", "refresh")
-        }
-        return true
     }
 
     override fun showUsers(listUsers: List<User>) {
@@ -73,10 +71,15 @@ class MainUserListActivity : MvpAppCompatActivity(),
     }
 
     override fun showError(messageError: String) {
-        Toast.makeText(applicationContext, messageError, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), messageError, Toast.LENGTH_SHORT).show()
     }
 
     override fun showDetailedInformationAboutUser(user: User) {
         Log.d("AAA", "showDetailedInformationAboutUser")
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = MainUserListFragment()
     }
 }

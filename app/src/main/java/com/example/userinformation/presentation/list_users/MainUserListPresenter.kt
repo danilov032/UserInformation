@@ -20,6 +20,7 @@ class MainUserListPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ listUsers ->
+                Log.d("AAA", "interactor")
                 viewState.showUsers(listUsers)
             }, {
                 Log.d("AAA", it.message?: "")

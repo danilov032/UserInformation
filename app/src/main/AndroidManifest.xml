@@ -15,7 +15,7 @@
             android:name=".presentation.info_user.AllInformationUserActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.list_users.MainUserListActivity"
+            android:name=".presentation.MainUserListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
