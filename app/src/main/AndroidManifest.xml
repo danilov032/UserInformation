@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UserInformation">
         <activity
+            android:name=".presentation.info_user.AllInformationUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.list_users.MainUserListActivity"
             android:exported="true">
             <intent-filter>
