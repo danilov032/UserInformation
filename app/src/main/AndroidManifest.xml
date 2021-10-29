@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UserInformation">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.list_users.MainUserListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
