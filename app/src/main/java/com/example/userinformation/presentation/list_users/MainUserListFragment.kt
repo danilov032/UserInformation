@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userinformation.R
 import com.example.userinformation.di.AppModule
 import com.example.userinformation.di.DaggerAppComponent
+import com.example.userinformation.domain.modeles.CellUserInfo
 import com.example.userinformation.domain.modeles.User
 import com.example.userinformation.presentation.adapters.UsersAdapter
 import com.example.userinformation.presentation.info_user.AllInformationUserFragment
@@ -57,7 +58,7 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
         }
     }
 
-    override fun showUsers(listUsers: List<User>) {
+    override fun showUsers(listUsers: List<CellUserInfo>) {
         customAdapter.updateItems(listUsers)
     }
 

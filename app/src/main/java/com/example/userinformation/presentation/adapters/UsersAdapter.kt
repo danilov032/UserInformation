@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userinformation.R
+import com.example.userinformation.domain.modeles.CellUserInfo
 import com.example.userinformation.domain.modeles.User
 import com.example.userinformation.presentation.holders.UsersHolder
 
-class UsersAdapter (private val containerUserListener: (User) -> Unit) : RecyclerView.Adapter<UsersHolder>() {
+class UsersAdapter (private val containerUserListener: (CellUserInfo) -> Unit) : RecyclerView.Adapter<UsersHolder>() {
 
-    private val items: MutableList<User> = mutableListOf()
+    private val items: MutableList<CellUserInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,7 +26,7 @@ class UsersAdapter (private val containerUserListener: (User) -> Unit) : Recycle
         return items.size
     }
 
-    fun updateItems(list: List<User>) {
+    fun updateItems(list: List<CellUserInfo>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()

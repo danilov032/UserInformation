@@ -2,6 +2,7 @@ package com.example.userinformation.presentation.list_users
 
 import android.util.Log
 import com.example.userinformation.domain.interactors.UserInteractor
+import com.example.userinformation.domain.modeles.CellUserInfo
 import com.example.userinformation.domain.modeles.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +17,7 @@ class MainUserListPresenter @Inject constructor(
 
     override fun attachView(view: MainUserContractView?) {
         super.attachView(view)
-        interactor.getUserList()
+        interactor.getFullInformationAboutUser()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ listUsers ->
@@ -27,7 +28,7 @@ class MainUserListPresenter @Inject constructor(
             })
     }
 
-    fun onClickUser(user: User){
+    fun onClickUser(user: CellUserInfo){
         if(user.isActive) viewState.showDetailedInformationAboutUser(user.id)
         else viewState.showError("Информация о данном пользователе не можетбыть просмотрена")
     }
