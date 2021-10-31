@@ -16,5 +16,8 @@ data class User (
     val about: String,
     val registered: String,
     val latitude: String,
-    val longitude: String
+    val longitude: String,
+    val tags: List<String>,
+    val friends: List<Int>,
+    val favoriteFruit: String
 )

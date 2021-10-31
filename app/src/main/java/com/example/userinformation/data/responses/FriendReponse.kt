@@ -1,5 +1,5 @@
 package com.example.userinformation.data.responses
 
-class FriendReponse (
+class FriendResponse (
     val id:Int
 )

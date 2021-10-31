@@ -1,15 +1,13 @@
 package com.example.userinformation.presentation.list_users
 
 import com.example.userinformation.domain.modeles.User
+import com.example.userinformation.presentation.BaseContractView
 import moxy.MvpView
-import moxy.viewstate.strategy.AddToEndSingleStrategy
-import moxy.viewstate.strategy.StateStrategyType
+import moxy.viewstate.strategy.*
 
-@StateStrategyType(AddToEndSingleStrategy::class)
-interface MainUserContractView: MvpView {
+@StateStrategyType(SkipStrategy::class)
+interface MainUserContractView: MvpView, BaseContractView {
     fun showUsers(listUsers: List<User>)
 
-    fun showError(messageError: String)
-
-    fun showDetailedInformationAboutUser(user: User)
+    fun showDetailedInformationAboutUser(id: Int)
 }

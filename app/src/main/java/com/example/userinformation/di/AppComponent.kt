@@ -1,7 +1,7 @@
 package com.example.userinformation.di
 
-import com.example.userinformation.presentation.info_user.AllInformationUserActivity
 import com.example.userinformation.presentation.MainUserListActivity
+import com.example.userinformation.presentation.info_user.AllInformationUserFragment
 import com.example.userinformation.presentation.list_users.MainUserListFragment
 import dagger.Component
 
@@ -11,5 +11,5 @@ interface AppComponent {
 
     fun injectMainUserListFragment(fragment: MainUserListFragment)
 
-    fun injectAllInformationUserActivity(activity: AllInformationUserActivity)
+    fun injectAllInformationUserFragment(fragment: AllInformationUserFragment)
 }

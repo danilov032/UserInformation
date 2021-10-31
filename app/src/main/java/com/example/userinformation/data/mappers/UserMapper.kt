@@ -8,21 +8,26 @@ class UserMapper {
         with(userResponse) {
             User(
                 id,
-                guid,
+                guid.orEmpty(),
                 isActive,
-                balance,
+                balance.orEmpty(),
                 age,
-                eyeColor,
-                name,
-                gender,
-                company,
-                email,
-                phone,
-                address,
-                about,
-                registered,
-                latitude,
-                longitude
+                eyeColor.orEmpty(),
+                name.orEmpty(),
+                gender.orEmpty(),
+                company.orEmpty(),
+                email.orEmpty(),
+                phone.orEmpty(),
+                address.orEmpty(),
+                about.orEmpty(),
+                registered.orEmpty(),
+                latitude.orEmpty(),
+                longitude.orEmpty(),
+                tags.orEmpty(),
+                friends?.map {
+                    it.id
+                }.orEmpty(),
+                favoriteFruit.orEmpty()
             )
         }
 }

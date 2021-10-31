@@ -13,13 +13,14 @@ import com.example.userinformation.di.AppModule
 import com.example.userinformation.di.DaggerAppComponent
 import com.example.userinformation.domain.modeles.User
 import com.example.userinformation.presentation.adapters.UsersAdapter
+import com.example.userinformation.presentation.info_user.AllInformationUserFragment
 import kotlinx.android.synthetic.main.fragment_main_user_list.*
+import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-
-class MainUserListFragment : Fragment(), MainUserContractView {
+class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
 
     @Inject
     lateinit var presenterLazy: dagger.Lazy<MainUserListPresenter>
@@ -38,15 +39,7 @@ class MainUserListFragment : Fragment(), MainUserContractView {
     }
 
     private val customAdapter: UsersAdapter by lazy {
-        UsersAdapter { user ->
-            presenter.onClickUser(
-                user
-            )
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        UsersAdapter { user -> presenter.onClickUser(user) }
     }
 
     override fun onCreateView(
@@ -65,8 +58,6 @@ class MainUserListFragment : Fragment(), MainUserContractView {
     }
 
     override fun showUsers(listUsers: List<User>) {
-        Log.d("AAA", listUsers.size.toString())
-
         customAdapter.updateItems(listUsers)
     }
 
@@ -74,8 +65,12 @@ class MainUserListFragment : Fragment(), MainUserContractView {
         Toast.makeText(requireContext(), messageError, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showDetailedInformationAboutUser(user: User) {
-        Log.d("AAA", "showDetailedInformationAboutUser")
+    override fun showDetailedInformationAboutUser(id: Int) {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, AllInformationUserFragment.newInstance(id))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

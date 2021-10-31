@@ -20,7 +20,6 @@ class MainUserListPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ listUsers ->
-                Log.d("AAA", "interactor")
                 viewState.showUsers(listUsers)
             }, {
                 Log.d("AAA", it.message?: "")
@@ -29,8 +28,7 @@ class MainUserListPresenter @Inject constructor(
     }
 
     fun onClickUser(user: User){
-        Log.d("AAA",  "userClick")
-        if(user.isActive) viewState.showDetailedInformationAboutUser(user)
+        if(user.isActive) viewState.showDetailedInformationAboutUser(user.id)
         else viewState.showError("Информация о данном пользователе не можетбыть просмотрена")
     }
 }
