@@ -32,7 +32,7 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
     @ProvidePresenter
     fun providePresenter(): MainUserListPresenter {
         DaggerAppComponent.builder()
-            .appModule(AppModule())
+            .appModule(AppModule(requireActivity().application))
             .build()
             .injectMainUserListFragment(this)
 

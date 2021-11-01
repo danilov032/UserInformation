@@ -1,43 +1,30 @@
 package com.example.userinformation.data.repositories
 
 import com.example.userinformation.data.api.ApiService
-import com.example.userinformation.data.datastore.UsersDataStore
-import com.example.userinformation.data.mappers.UserMapper
-import com.example.userinformation.data.responses.UserResponse
+import com.example.userinformation.data.db.UsersDao
+import com.example.userinformation.data.utils.mapToUser
+import com.example.userinformation.data.utils.mapToUserDBModel
 import com.example.userinformation.domain.modeles.CellUserInfo
 import com.example.userinformation.domain.modeles.User
-import io.reactivex.Maybe
 import io.reactivex.Single
+import javax.inject.Inject
 
-class UserRepository(
+class UserRepository @Inject constructor(
     private val apiService: ApiService,
-    private var userMapper: UserMapper,
-    private val usersDataStore: UsersDataStore
+    private val userDB: UsersDao
 ) {
-    private fun getListUsers(): Single<List<User>> =
-        usersDataStore.getListCats()
-            .switchIfEmpty(
-                apiService.getListUsers()
-                    .map { responseList ->
-                        responseList.map { response ->
-                            userMapper(response)
-                        }
-                    }
-                    .doOnSuccess { cats ->
-                        usersDataStore.updateListCats(cats)
-                    }
-            )
+    fun getCountUsers() = userDB.getCountUsers()
 
-    fun getCurrentUser(id: Int): Single<User> =
-        getListUsers()
-            .map { listUsers ->
-                listUsers.find { user ->
-                    user.id == id
-                } ?: throw Throwable("Пользователь не найден")
+    private fun getUsersFromBD(): Single<List<User>> =
+        userDB.getUsers()
+            .map { responseList ->
+                responseList.map { response ->
+                    response.mapToUser()
+                }
             }
 
-    fun getFullInformationAboutUser(): Single<List<CellUserInfo>> =
-        getListUsers().map { listUsers ->
+    fun getFullInformationAboutUserFromBD(): Single<List<CellUserInfo>> =
+        getUsersFromBD().map { listUsers ->
             listUsers.map { user ->
                 CellUserInfo(
                     user.id,
@@ -48,8 +35,41 @@ class UserRepository(
             }
         }
 
+    fun getUsersFromServer(): Single<List<CellUserInfo>> =
+        apiService.getListUsers()
+            .map { responseList ->
+                responseList.map { response ->
+                    response.mapToUserDBModel()
+                }
+            }
+            .doOnSuccess { users ->
+                userDB.insertUser(users)
+            }
+            .map { listUsers ->
+                listUsers.map { user ->
+                    CellUserInfo(
+                        user.id,
+                        user.isActive,
+                        user.name,
+                        user.email
+                    )
+                }
+            }
+
+    fun getCurrentUser(id: Int): Single<User> =
+        userDB.getUsers()
+            .map { listUsers ->
+                listUsers.map { user ->
+                    user.mapToUser()
+                }
+                    .find { user ->
+                        user.id == id
+                    } ?: throw Throwable("Пользователь не найден")
+
+            }
+
     fun getListUserFriends(listFriends: List<Int>): Single<List<CellUserInfo>> =
-        getListUsers()
+        userDB.getUsers()
             .map { listUsers ->
                 listUsers.filter { user ->
                     listFriends.contains(user.id)

@@ -17,7 +17,7 @@ class MainUserListActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_user_list)
         DaggerAppComponent.builder()
-            .appModule(AppModule())
+            .appModule(AppModule(application))
             .build()
             .injectMainUserListActivity(this)
 

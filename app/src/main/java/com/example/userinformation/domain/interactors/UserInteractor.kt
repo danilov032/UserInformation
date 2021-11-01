@@ -10,7 +10,11 @@ class UserInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun getCurrentUser(id: Int): Single<User> = userRepository.getCurrentUser(id)
 
-    fun getFullInformationAboutUser(): Single<List<CellUserInfo>> = userRepository.getFullInformationAboutUser()
-
     fun getListUserFriends(listFriends: List<Int>): Single<List<CellUserInfo>> = userRepository.getListUserFriends(listFriends)
+
+    fun getCountUsers(): Single<Int> = userRepository.getCountUsers()
+
+    fun getUsersFromBD(): Single<List<CellUserInfo>> = userRepository.getFullInformationAboutUserFromBD()
+
+    fun getUsersFromServer():Single<List<CellUserInfo>> = userRepository.getUsersFromServer()
 }

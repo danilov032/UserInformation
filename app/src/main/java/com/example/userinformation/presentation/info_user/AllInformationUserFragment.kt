@@ -36,7 +36,7 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
     @ProvidePresenter
     fun providePresenter(): AllInformationUserPresenter {
         DaggerAppComponent.builder()
-            .appModule(AppModule())
+            .appModule(AppModule(requireActivity().application))
             .build()
             .injectAllInformationUserFragment(this)
 
@@ -94,7 +94,6 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
             "green" -> color = "#03fb25"
             "brown" -> color = "#5c4213"
         }
-
         image_eye_color.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
 
         var drawable = 1
@@ -103,7 +102,6 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
             "banana" -> drawable = R.drawable.bananas
             "strawberry" -> drawable = R.drawable.strawberry
         }
-
         image_fruit.setImageDrawable(ResourcesCompat.getDrawable(resources,drawable, null))
     }
 

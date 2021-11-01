@@ -1,25 +1,22 @@
 package com.example.userinformation.di
 
+import android.app.Application
 import com.example.userinformation.data.api.ApiService
-import com.example.userinformation.data.datastore.UsersDataStore
-import com.example.userinformation.data.mappers.UserMapper
+import com.example.userinformation.data.db.dbAbstract
 import com.example.userinformation.data.repositories.UserRepository
 import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule {
+class AppModule(private val application: Application) {
 
     @Provides
     fun provideUserRepository(): UserRepository {
-        return UserRepository(apiService, mapper, dataStore)
+        return UserRepository(apiService, dataBase)
     }
     @get:Provides
     val apiService = ApiService.create()
 
     @get:Provides
-    val mapper = UserMapper()
-
-    @get:Provides
-    val dataStore = UsersDataStore()
+    val dataBase = dbAbstract.getDatabase(application).catsDao()
 }

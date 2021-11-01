@@ -17,7 +17,36 @@ class MainUserListPresenter @Inject constructor(
 
     override fun attachView(view: MainUserContractView?) {
         super.attachView(view)
-        interactor.getFullInformationAboutUser()
+        interactor.getCountUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ count ->
+                if(count == 0){
+                    getDataFromServer()
+                }
+                else{
+                    getDataFromBD()
+                }
+            }, {
+                Log.d("AAA", it.message?: "")
+                viewState.showError(it.message?: "Неизвестная ошибка")
+            })
+    }
+
+    private fun getDataFromBD(){
+        interactor.getUsersFromBD()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ listUsers ->
+                viewState.showUsers(listUsers)
+            }, {
+                Log.d("AAA", it.message?: "")
+                viewState.showError(it.message?: "Неизвестная ошибка")
+            })
+    }
+
+    private fun getDataFromServer(){
+        interactor.getUsersFromServer()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ listUsers ->
