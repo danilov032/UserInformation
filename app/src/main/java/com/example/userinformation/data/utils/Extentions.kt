@@ -3,6 +3,8 @@ package com.example.userinformation.data.utils
 import com.example.userinformation.data.modeles.UserDBModel
 import com.example.userinformation.data.responses.UserResponse
 import com.example.userinformation.domain.modeles.User
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 //fun UserResponse.mapToUser(): User =
@@ -122,3 +124,8 @@ fun List<Int>.mapToStringFromInt(): String =
 
 fun String.mapToListInt(): List<Int> =
     this.split(",").toTypedArray().map { it.toInt() }
+
+//HH:mm dd.MM.yy
+//"registered": "2016-02-14T09:26:27 -03:00"
+
+fun String.mapToData() : String = ""

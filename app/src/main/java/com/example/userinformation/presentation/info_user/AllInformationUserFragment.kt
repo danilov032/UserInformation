@@ -1,7 +1,9 @@
 package com.example.userinformation.presentation.info_user
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_all_information_user.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import java.lang.Exception
 import javax.inject.Inject
 
 private const val ARG_ID_CURRENT = "idCurrent"
@@ -56,7 +59,10 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
         arguments?.let {
             idCurrent = it.getInt(ARG_ID_CURRENT)
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
         presenter.getCurrentUser(idCurrent)
     }
 
@@ -72,6 +78,26 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
         recycler_friends.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = customAdapter
+        }
+
+        tv_latitude.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.google.com/maps/search/?api=1&query=" +
+                        tv_latitude.text + "%2C" + tv_longitude.text)
+            )
+            startActivity(intent)
+        }
+
+        tv_email.setOnClickListener {
+            Log.d("AAA", "tv_email")
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + tv_email.text))
+                startActivity(intent)
+        }
+
+        tv_phone.setOnClickListener{
+
         }
     }
 
@@ -89,7 +115,7 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
         tv_longitude.text = user.longitude
 
         var color = ""
-        when(user.eyeColor) {
+        when (user.eyeColor) {
             "blue" -> color = "#2408f1"
             "green" -> color = "#03fb25"
             "brown" -> color = "#5c4213"
@@ -97,12 +123,12 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
         image_eye_color.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
 
         var drawable = 1
-        when(user.favoriteFruit) {
+        when (user.favoriteFruit) {
             "apple" -> drawable = R.drawable.apple
             "banana" -> drawable = R.drawable.bananas
             "strawberry" -> drawable = R.drawable.strawberry
         }
-        image_fruit.setImageDrawable(ResourcesCompat.getDrawable(resources,drawable, null))
+        image_fruit.setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, null))
     }
 
     override fun showFriends(listFriends: List<CellUserInfo>) {
