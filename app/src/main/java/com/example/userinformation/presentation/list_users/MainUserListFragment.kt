@@ -3,9 +3,7 @@ package com.example.userinformation.presentation.list_users
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +17,6 @@ import kotlinx.android.synthetic.main.fragment_main_user_list.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.inject.Inject
 
 class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
@@ -49,6 +41,11 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
         UsersAdapter { user -> presenter.onClickUser(user) }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,26 +53,12 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
         return inflater.inflate(R.layout.fragment_main_user_list, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = customAdapter
         }
-//HH:mm dd.MM.yy
-//"2016-02-14T09:26:27 -03:00"
-
-//        var date = LocalDate.parse("2016-02-14T09:26:27 -03:00")
-
-
-//        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss z")
-//        var date = LocalDate.parse("2016-02-14T09:26:27 -03:00", formatter)
-//
-//
-//        Log.d("AAAA",date.toString())
-//        var formatter1 = DateTimeFormatter.ofPattern("HH:mm dd.MM.yy")
-//        var formattedDate = date.format(formatter1)
     }
 
 
@@ -83,8 +66,21 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
         customAdapter.updateItems(listUsers)
     }
 
-    override fun showError(messageError: String) {
-        Toast.makeText(requireContext(), messageError, Toast.LENGTH_SHORT).show()
+    override fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_user_list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_favorites) {
+            Log.d("AAA", "refreshFr1")
+            presenter.updateDataCache()
+        }
+        return true
     }
 
     override fun showDetailedInformationAboutUser(id: Int) {

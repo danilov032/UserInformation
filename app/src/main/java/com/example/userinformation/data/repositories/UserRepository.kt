@@ -6,6 +6,7 @@ import com.example.userinformation.data.utils.mapToUser
 import com.example.userinformation.data.utils.mapToUserDBModel
 import com.example.userinformation.domain.modeles.CellUserInfo
 import com.example.userinformation.domain.modeles.User
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -14,6 +15,8 @@ class UserRepository @Inject constructor(
     private val userDB: UsersDao
 ) {
     fun getCountUsers() = userDB.getCountUsers()
+
+    fun deleteAll(): Completable = userDB.deleteAll()
 
     private fun getUsersFromBD(): Single<List<User>> =
         userDB.getUsers()

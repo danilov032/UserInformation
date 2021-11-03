@@ -1,39 +1,15 @@
 package com.example.userinformation.data.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.userinformation.data.modeles.UserDBModel
 import com.example.userinformation.data.responses.UserResponse
 import com.example.userinformation.domain.modeles.User
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-//fun UserResponse.mapToUser(): User =
-//    with(this) {
-//        User(
-//            id,
-//            guid.orEmpty(),
-//            isActive,
-//            balance.orEmpty(),
-//            age,
-//            eyeColor.orEmpty(),
-//            name.orEmpty(),
-//            gender.orEmpty(),
-//            company.orEmpty(),
-//            email.orEmpty(),
-//            phone.orEmpty(),
-//            address.orEmpty(),
-//            about.orEmpty(),
-//            registered.orEmpty(),
-//            latitude.orEmpty(),
-//            longitude.orEmpty(),
-//            tags.orEmpty(),
-//            friends?.map {
-//                it.id
-//            }.orEmpty(),
-//            favoriteFruit.orEmpty()
-//        )
-//    }
-
+@RequiresApi(Build.VERSION_CODES.O)
 fun UserResponse.mapToUserDBModel(): UserDBModel =
     with(this) {
         UserDBModel(
@@ -50,7 +26,7 @@ fun UserResponse.mapToUserDBModel(): UserDBModel =
             phone = phone.orEmpty(),
             address = address.orEmpty(),
             about = about.orEmpty(),
-            registered = registered.orEmpty(),
+            registered = registered?.mapToData().orEmpty(),
             latitude = latitude.orEmpty(),
             longitude = longitude.orEmpty(),
             tags = tags?.mapToString().orEmpty(),
@@ -61,33 +37,7 @@ fun UserResponse.mapToUserDBModel(): UserDBModel =
         )
     }
 
-//fun UserDBModel.mapToUserResponse(): UserResponse =
-//    with(this) {
-//        UserResponse(
-//            id,
-//            guid,
-//            isActive,
-//            balance,
-//            age,
-//            eyeColor,
-//            name,
-//            gender,
-//            company,
-//            email,
-//            phone,
-//            address,
-//            about,
-//            registered,
-//            latitude,
-//            longitude,
-//            tags.mapToListStringFromString(),
-//            friends.mapToListInt().map { friend ->
-//                FriendResponse(friend)
-//            },
-//            favoriteFruit
-//        )
-//    }
-
+@RequiresApi(Build.VERSION_CODES.O)
 fun UserDBModel.mapToUser(): User =
     with(this) {
         User(
@@ -125,7 +75,10 @@ fun List<Int>.mapToStringFromInt(): String =
 fun String.mapToListInt(): List<Int> =
     this.split(",").toTypedArray().map { it.toInt() }
 
-//HH:mm dd.MM.yy
-//"registered": "2016-02-14T09:26:27 -03:00"
-
-fun String.mapToData() : String = ""
+@RequiresApi(Build.VERSION_CODES.O)
+fun String.mapToData() : String {
+    val strData = this.split(" ")[0]
+    val localDateTime = LocalDateTime.parse(strData)
+    val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yy")
+    return formatter.format(localDateTime)
+}

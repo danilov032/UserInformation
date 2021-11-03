@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.userinformation.data.modeles.UserDBModel
+import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
@@ -18,4 +19,7 @@ interface UsersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(users: List<UserDBModel>)
+
+    @Query("DELETE FROM UserDBModel")
+    fun deleteAll(): Completable
 }

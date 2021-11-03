@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +17,12 @@ import com.example.userinformation.di.DaggerAppComponent
 import com.example.userinformation.domain.modeles.CellUserInfo
 import com.example.userinformation.domain.modeles.User
 import com.example.userinformation.presentation.adapters.UsersAdapter
+import com.example.userinformation.presentation.utils.ColorsEnum
+import com.example.userinformation.presentation.utils.ImageEnum
 import kotlinx.android.synthetic.main.fragment_all_information_user.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import java.lang.Exception
 import javax.inject.Inject
 
 private const val ARG_ID_CURRENT = "idCurrent"
@@ -80,29 +80,27 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
             adapter = customAdapter
         }
 
-        tv_latitude.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.google.com/maps/search/?api=1&query=" +
-                        tv_latitude.text + "%2C" + tv_longitude.text)
+        container_cords.setOnClickListener {
+            startAction(
+                Intent.ACTION_VIEW, "https://www.google.com/maps/search/?api=1&query=" +
+                        tv_latitude.text + "%2C" + tv_longitude.text
             )
-            startActivity(intent)
         }
 
-        tv_email.setOnClickListener {
-            Log.d("AAA", "tv_email")
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + tv_email.text))
-                startActivity(intent)
+        container_email.setOnClickListener {
+            startAction(Intent.ACTION_VIEW, "mailto:" + tv_email.text)
         }
 
-        tv_phone.setOnClickListener{
-
+        container_phone.setOnClickListener {
+            startAction(Intent.ACTION_DIAL, "tel:" + tv_phone.text)
         }
     }
 
+    private fun startAction(intentAction: String, uriPath: String) {
+        startActivity(Intent(intentAction, Uri.parse(uriPath)))
+    }
+
     override fun showInfoUser(user: User) {
-        Log.d("AAA", "showInfoUser")
         tv_name.text = user.name
         tv_age.text = user.age.toString()
         tv_company.text = user.company
@@ -114,20 +112,13 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
         tv_latitude.text = user.latitude
         tv_longitude.text = user.longitude
 
-        var color = ""
-        when (user.eyeColor) {
-            "blue" -> color = "#2408f1"
-            "green" -> color = "#03fb25"
-            "brown" -> color = "#5c4213"
-        }
-        image_eye_color.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
+        image_eye_color.backgroundTintList = ColorStateList.valueOf(
+            Color.parseColor(
+                ColorsEnum.getByColorName(user.eyeColor).getResource()
+            )
+        )
 
-        var drawable = 1
-        when (user.favoriteFruit) {
-            "apple" -> drawable = R.drawable.apple
-            "banana" -> drawable = R.drawable.bananas
-            "strawberry" -> drawable = R.drawable.strawberry
-        }
+        val drawable = ImageEnum.getByColorName(user.favoriteFruit).getResource()
         image_fruit.setImageDrawable(ResourcesCompat.getDrawable(resources, drawable, null))
     }
 
@@ -138,13 +129,13 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
     override fun showDetailedInformationAboutFriendUser(id: Int) {
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.container, AllInformationUserFragment.newInstance(id))
+            .replace(R.id.container, newInstance(id))
             .addToBackStack(null)
             .commit()
     }
 
-    override fun showError(messageError: String) {
-        Toast.makeText(requireContext(), messageError, Toast.LENGTH_SHORT).show()
+    override fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

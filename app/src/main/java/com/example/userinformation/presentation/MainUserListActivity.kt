@@ -29,16 +29,4 @@ class MainUserListActivity : AppCompatActivity(){
                 .commit()
         }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_user_list, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_favorites) {
-            Log.d("AAA", "refresh")
-        }
-        return true
-    }
 }

@@ -33,6 +33,8 @@ android {
         disable "ResourceType"
         disable "CheckResult"
         disable "NotifyDataSetChanged"
+        disable "SupportAnnotationUsage"
+        disable "ResourceAsColor"
     }
 }
 

@@ -1,10 +1,7 @@
 package com.example.userinformation.presentation.info_user
 
-import android.util.Log
 import com.example.userinformation.domain.interactors.UserInteractor
 import com.example.userinformation.domain.modeles.CellUserInfo
-import com.example.userinformation.domain.modeles.User
-import com.example.userinformation.presentation.list_users.MainUserContractView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -24,8 +21,7 @@ class AllInformationUserPresenter @Inject constructor(
                 viewState.showInfoUser(user)
                 getListFriends(user.friends)
             }, {
-                Log.d("AAA", it.message?: "")
-                viewState.showError(it.message?: "Неизвестная ошибка")
+                viewState.showToast(it.message?: "Неизвестная ошибка")
             })
     }
 
@@ -36,13 +32,12 @@ class AllInformationUserPresenter @Inject constructor(
             .subscribe({ friends ->
                 viewState.showFriends(friends)
             }, {
-                Log.d("AAA", it.message?: "")
-                viewState.showError(it.message?: "Неизвестная ошибка")
+                viewState.showToast(it.message?: "Неизвестная ошибка")
             })
     }
 
     fun onClickUser(user: CellUserInfo){
         if(user.isActive) viewState.showDetailedInformationAboutFriendUser(user.id)
-        else viewState.showError("Информация о данном пользователе не можетбыть просмотрена")
+        else viewState.showToast("Информация о данном пользователе не можетбыть просмотрена")
     }
 }
