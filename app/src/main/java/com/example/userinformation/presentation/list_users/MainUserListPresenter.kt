@@ -1,7 +1,7 @@
 package com.example.userinformation.presentation.list_users
 
 import com.example.userinformation.domain.interactors.UserInteractor
-import com.example.userinformation.domain.modeles.CellUserInfo
+import com.example.userinformation.domain.models.CellUserInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -29,6 +29,23 @@ class MainUserListPresenter @Inject constructor(
             })
     }
 
+    fun updateDataCache() {
+        interactor.deleteAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                getDataFromServer()
+                viewState.showToast("Данные обновлены")
+            }, {
+                viewState.showToast(it.message ?: "Неизвестная ошибка")
+            })
+    }
+
+    fun onClickUser(user: CellUserInfo) {
+        if (user.isActive) viewState.showDetailedInformationAboutUser(user.id)
+        else viewState.showToast("Информация о данном пользователе не может быть просмотрена")
+    }
+
     private fun getDataFromBD() {
         interactor.getUsersFromBD()
             .subscribeOn(Schedulers.io())
@@ -49,22 +66,5 @@ class MainUserListPresenter @Inject constructor(
             }, {
                 viewState.showToast(it.message ?: "Неизвестная ошибка")
             })
-    }
-
-    fun updateDataCache() {
-        interactor.deleteAll()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                getDataFromServer()
-                viewState.showToast("Данные обновлены")
-            }, {
-                viewState.showToast(it.message ?: "Неизвестная ошибка")
-            })
-    }
-
-    fun onClickUser(user: CellUserInfo) {
-        if (user.isActive) viewState.showDetailedInformationAboutUser(user.id)
-        else viewState.showToast("Информация о данном пользователе не может быть просмотрена")
     }
 }

@@ -3,7 +3,7 @@ package com.example.userinformation.presentation.holders
 import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.userinformation.domain.modeles.CellUserInfo
+import com.example.userinformation.domain.models.CellUserInfo
 import kotlinx.android.synthetic.main.user_item.view.*
 
 class UsersHolder(

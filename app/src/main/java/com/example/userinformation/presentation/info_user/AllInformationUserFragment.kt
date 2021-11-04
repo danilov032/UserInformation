@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userinformation.R
 import com.example.userinformation.di.AppModule
 import com.example.userinformation.di.DaggerAppComponent
-import com.example.userinformation.domain.modeles.CellUserInfo
-import com.example.userinformation.domain.modeles.User
+import com.example.userinformation.domain.models.CellUserInfo
+import com.example.userinformation.domain.models.User
 import com.example.userinformation.presentation.adapters.UsersAdapter
 import com.example.userinformation.presentation.utils.ColorsEnum
 import com.example.userinformation.presentation.utils.ImageEnum
@@ -63,7 +63,7 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
 
     override fun onStart() {
         super.onStart()
-        presenter.getCurrentUser(idCurrent)
+        presenter.onStartFragment(idCurrent)
     }
 
     override fun onCreateView(
@@ -94,10 +94,6 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
         container_phone.setOnClickListener {
             startAction(Intent.ACTION_DIAL, "tel:" + tv_phone.text)
         }
-    }
-
-    private fun startAction(intentAction: String, uriPath: String) {
-        startActivity(Intent(intentAction, Uri.parse(uriPath)))
     }
 
     override fun showInfoUser(user: User) {
@@ -136,6 +132,10 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
 
     override fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun startAction(intentAction: String, uriPath: String) {
+        startActivity(Intent(intentAction, Uri.parse(uriPath)))
     }
 
     companion object {

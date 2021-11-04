@@ -4,8 +4,8 @@ import com.example.userinformation.data.api.ApiService
 import com.example.userinformation.data.db.UsersDao
 import com.example.userinformation.data.utils.mapToUser
 import com.example.userinformation.data.utils.mapToUserDBModel
-import com.example.userinformation.domain.modeles.CellUserInfo
-import com.example.userinformation.domain.modeles.User
+import com.example.userinformation.domain.models.CellUserInfo
+import com.example.userinformation.domain.models.User
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

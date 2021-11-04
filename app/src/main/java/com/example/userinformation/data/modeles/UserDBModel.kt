@@ -8,7 +8,7 @@ import java.util.stream.Collectors
 
 @Entity
 class UserDBModel (
-    @PrimaryKey(autoGenerate = true) var  idElement: Int? = null,
+    @PrimaryKey(autoGenerate = true) var idElement: Int? = null,
     val id: Int,
     val guid: String,
     val isActive: Boolean,
@@ -29,27 +29,3 @@ class UserDBModel (
     val friends: String,
     val favoriteFruit: String
     )
-
-//class TagsConverter {
-//    @TypeConverter
-//    fun fromTags(tags: List<String?>): String {
-//        return tags.stream().collect(Collectors.joining(","))
-//    }
-//
-//    @TypeConverter
-//    fun toTags(data: String): Array<String> {
-//        return data.split(",").toTypedArray()
-//    }
-//}
-//
-//class FriendsConverter {
-//    @TypeConverter
-//    fun fromFriends(friends: Array<Int?>): String {
-//        return friends.map{it.toString()}.stream().collect(Collectors.joining(","))
-//    }
-//
-//    @TypeConverter
-//    fun toFriends(data: String): List<Int> {
-//        return data.split(",").toTypedArray().map { it.toInt() }
-//    }
-//}

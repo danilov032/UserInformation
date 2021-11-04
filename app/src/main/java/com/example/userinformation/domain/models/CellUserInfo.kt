@@ -1,4 +1,4 @@
-package com.example.userinformation.domain.modeles
+package com.example.userinformation.domain.models
 
 class CellUserInfo (
     val id: Int,

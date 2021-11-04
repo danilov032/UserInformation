@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.userinformation.data.modeles.UserDBModel
 import com.example.userinformation.data.responses.UserResponse
-import com.example.userinformation.domain.modeles.User
+import com.example.userinformation.domain.models.User
 import java.util.stream.Collectors
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

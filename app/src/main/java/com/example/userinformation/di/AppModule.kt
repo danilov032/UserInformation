@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(private val application: Application) {
+class AppModule(application: Application) {
 
     @Provides
     fun provideUserRepository(): UserRepository {

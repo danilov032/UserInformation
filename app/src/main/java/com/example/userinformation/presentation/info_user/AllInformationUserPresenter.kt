@@ -1,7 +1,7 @@
 package com.example.userinformation.presentation.info_user
 
 import com.example.userinformation.domain.interactors.UserInteractor
-import com.example.userinformation.domain.modeles.CellUserInfo
+import com.example.userinformation.domain.models.CellUserInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -13,7 +13,7 @@ class AllInformationUserPresenter @Inject constructor(
     private val interactor: UserInteractor
 ) : MvpPresenter<AllInformationUserContractView>() {
 
-    fun getCurrentUser(id: Int){
+    fun onStartFragment(id: Int){
         interactor.getCurrentUser(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -25,6 +25,11 @@ class AllInformationUserPresenter @Inject constructor(
             })
     }
 
+    fun onClickUser(user: CellUserInfo){
+        if(user.isActive) viewState.showDetailedInformationAboutFriendUser(user.id)
+        else viewState.showToast("Информация о данном пользователе не можетбыть просмотрена")
+    }
+
     private fun getListFriends(listFriends: List<Int>){
         interactor.getListUserFriends(listFriends)
             .subscribeOn(Schedulers.io())
@@ -34,10 +39,5 @@ class AllInformationUserPresenter @Inject constructor(
             }, {
                 viewState.showToast(it.message?: "Неизвестная ошибка")
             })
-    }
-
-    fun onClickUser(user: CellUserInfo){
-        if(user.isActive) viewState.showDetailedInformationAboutFriendUser(user.id)
-        else viewState.showToast("Информация о данном пользователе не можетбыть просмотрена")
     }
 }

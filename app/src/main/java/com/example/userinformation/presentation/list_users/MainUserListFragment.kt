@@ -1,16 +1,14 @@
 package com.example.userinformation.presentation.list_users
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.userinformation.R
 import com.example.userinformation.di.AppModule
 import com.example.userinformation.di.DaggerAppComponent
-import com.example.userinformation.domain.modeles.CellUserInfo
+import com.example.userinformation.domain.models.CellUserInfo
 import com.example.userinformation.presentation.adapters.UsersAdapter
 import com.example.userinformation.presentation.info_user.AllInformationUserFragment
 import kotlinx.android.synthetic.main.fragment_main_user_list.*
@@ -61,7 +59,6 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
         }
     }
 
-
     override fun showUsers(listUsers: List<CellUserInfo>) {
         customAdapter.updateItems(listUsers)
     }
@@ -77,7 +74,6 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorites) {
-            Log.d("AAA", "refreshFr1")
             presenter.updateDataCache()
         }
         return true

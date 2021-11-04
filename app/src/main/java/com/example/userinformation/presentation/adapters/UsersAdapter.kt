@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userinformation.R
-import com.example.userinformation.domain.modeles.CellUserInfo
-import com.example.userinformation.domain.modeles.User
+import com.example.userinformation.domain.models.CellUserInfo
 import com.example.userinformation.presentation.holders.UsersHolder
 
 class UsersAdapter (private val containerUserListener: (CellUserInfo) -> Unit) : RecyclerView.Adapter<UsersHolder>() {
