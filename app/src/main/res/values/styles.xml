@@ -7,7 +7,7 @@
 
     <style name="HeaderStyle" parent="@style/BaseStyle">
         <item name="android:textSize">20sp</item>
-        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
     </style>
 
     <style name="LinkStyle" parent="@style/BaseStyle">
