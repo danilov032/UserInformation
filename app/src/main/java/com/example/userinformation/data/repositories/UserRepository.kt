@@ -14,17 +14,7 @@ class UserRepository @Inject constructor(
     private val apiService: ApiService,
     private val userDB: UsersDao
 ) {
-    fun getCountUsers() = userDB.getCountUsers()
-
     fun deleteAll(): Completable = userDB.deleteAll()
-
-    private fun getUsersFromBD(): Single<List<User>> =
-        userDB.getUsers()
-            .map { responseList ->
-                responseList.map { response ->
-                    response.mapToUser()
-                }
-            }
 
     fun getFullInformationAboutUserFromBD(): Single<List<CellUserInfo>> =
         getUsersFromBD().map { listUsers ->
@@ -60,15 +50,9 @@ class UserRepository @Inject constructor(
             }
 
     fun getCurrentUser(id: Int): Single<User> =
-        userDB.getUsers()
-            .map { listUsers ->
-                listUsers.map { user ->
-                    user.mapToUser()
-                }
-                    .find { user ->
-                        user.id == id
-                    } ?: throw Throwable("Пользователь не найден")
-
+        userDB.getCurrentUser(id)
+            .map { user ->
+                user.mapToUser()
             }
 
     fun getListUserFriends(listFriends: List<Int>): Single<List<CellUserInfo>> =
@@ -85,5 +69,13 @@ class UserRepository @Inject constructor(
                             user.email
                         )
                     }
+            }
+
+    private fun getUsersFromBD(): Single<List<User>> =
+        userDB.getUsers()
+            .map { responseList ->
+                responseList.map { response ->
+                    response.mapToUser()
+                }
             }
 }

@@ -19,7 +19,7 @@ class UserResponse (
         val name: String?,
         @SerializedName("gender")
         val gender: String?,
-        @SerializedName("gendercompany")
+        @SerializedName("company")
         val company: String?,
         @SerializedName("email")
         val email: String?,

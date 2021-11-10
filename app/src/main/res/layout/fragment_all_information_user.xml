@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,11 +66,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_name" />
 
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line1"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_name" />
@@ -92,11 +95,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_age" />
 
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line2"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_age" />
@@ -119,86 +124,92 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_company" />
 
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line3"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_company" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_title_email"
+                style="@style/HeaderStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line3" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                style="@style/LinkStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="google@gmail.com"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_email" />
+
+            <View
                 android:id="@+id/container_email"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line3">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_email"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_email" />
 
-                <TextView
-                    android:id="@+id/tv_title_email"
-                    style="@style/HeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_email"
-                    style="@style/LinkStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="google@gmail.com"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_email" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line4"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/container_email" />
+                app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_title_phone"
+                style="@style/HeaderStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Телефон"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line4" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/LinkStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="1 (906) 447-2711"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_phone" />
+
+            <View
                 android:id="@+id/container_phone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line4">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_phone"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_phone" />
 
-                <TextView
-                    android:id="@+id/tv_title_phone"
-                    style="@style/HeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Телефон"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_phone"
-                    style="@style/LinkStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="1 (906) 447-2711"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_phone" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line5"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/container_phone" />
+                app:layout_constraintTop_toBottomOf="@id/tv_phone" />
 
             <TextView
                 android:id="@+id/tv_title_address"
@@ -218,11 +229,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_address" />
 
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line6"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_address" />
@@ -245,11 +258,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_about" />
 
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line7"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_about" />
@@ -272,60 +287,64 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_registered" />
 
-            <include
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/line8"
-                layout="@layout/view_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_registered" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/container_cords"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line8">
-
-                <TextView
-                    android:id="@+id/tv_title_cords"
-                    style="@style/HeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Координаты"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_latitude"
-                    style="@style/LinkStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="-18.460578"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_cords" />
-
-                <TextView
-                    android:id="@+id/tv_longitude"
-                    style="@style/LinkStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:hint="-18.460578"
-                    app:layout_constraintStart_toEndOf="@+id/tv_latitude"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title_cords" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <include
-                android:id="@+id/line9"
-                layout="@layout/view_line"
+            <TextView
+                android:id="@+id/tv_title_cords"
+                style="@style/HeaderStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Координаты"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line8"/>
+
+            <TextView
+                android:id="@+id/tv_latitude"
+                style="@style/LinkStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="-18.460578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_cords" />
+
+            <TextView
+                android:id="@+id/tv_longitude"
+                style="@style/LinkStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:hint="-18.460578"
+                app:layout_constraintStart_toEndOf="@+id/tv_latitude"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_cords" />
+
+            <View
+                android:id="@+id/container_cords"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_cords"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_latitude" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D1D1D1"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/line9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/container_cords" />
+                app:layout_constraintTop_toBottomOf="@id/tv_latitude" />
 
             <TextView
                 android:id="@+id/tv_friends"

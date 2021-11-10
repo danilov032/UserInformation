@@ -130,7 +130,7 @@ class AllInformationUserFragment : MvpAppCompatFragment(), AllInformationUserCon
             .commit()
     }
 
-    override fun showToast(message: String) {
+    override fun showToast(message: String?) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 

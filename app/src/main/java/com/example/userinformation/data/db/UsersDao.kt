@@ -14,8 +14,8 @@ interface UsersDao {
     @Query("SELECT * FROM UserDBModel")
     fun getUsers(): Single<List<UserDBModel>>
 
-    @Query("SELECT count(*) FROM UserDBModel")
-    fun getCountUsers(): Single<Int>
+    @Query("SELECT * FROM UserDBModel Where id = :idUser")
+    fun getCurrentUser(idUser: Int): Single<UserDBModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(users: List<UserDBModel>)

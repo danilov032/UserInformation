@@ -63,8 +63,8 @@ class MainUserListFragment : MvpAppCompatFragment(), MainUserContractView {
         customAdapter.updateItems(listUsers)
     }
 
-    override fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    override fun showToast(message: String?) {
+        Toast.makeText(requireContext(), message?: requireContext().getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
